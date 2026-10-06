@@ -1,0 +1,60 @@
+{% extends "store/base.html" %}
+
+{% block content %}
+
+<h1>🛒 Shopping Cart</h1>
+
+{% if items %}
+
+<table style="width:100%; background:white; border-collapse:collapse;">
+    <tr>
+        <th style="padding:15px; border:1px solid #ddd;">Product</th>
+        <th style="padding:15px; border:1px solid #ddd;">Quantity</th>
+        <th style="padding:15px; border:1px solid #ddd;">Price</th>
+        <th style="padding:15px; border:1px solid #ddd;">Action</th>
+    </tr>
+
+    {% for item in items %}
+
+    <tr>
+        <td style="padding:15px; border:1px solid #ddd;">
+            {{ item.product.name }}
+        </td>
+
+        <td style="padding:15px; border:1px solid #ddd;">
+            {{ item.quantity }}
+        </td>
+
+        <td style="padding:15px; border:1px solid #ddd;">
+            ₹{{ item.item_total }}
+        </td>
+
+        <td style="padding:15px; border:1px solid #ddd;">
+            <a href="{% url 'remove_from_cart' item.product.id %}"
+               style="color:red;">
+                Remove
+            </a>
+        </td>
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+<h2>Total: ₹{{ total }}</h2>
+
+<a class="button" href="{% url 'checkout' %}">
+    Checkout
+</a>
+
+{% else %}
+
+<p>Your cart is empty.</p>
+
+<a class="button" href="/">
+    Continue Shopping
+</a>
+
+{% endif %}
+
+{% endblock %}

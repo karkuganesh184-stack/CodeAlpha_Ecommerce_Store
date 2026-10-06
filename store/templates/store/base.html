@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CodeAlpha Store</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            color: #222;
+        }
+
+        nav {
+            background: #111827;
+            color: white;
+            padding: 18px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        nav h2 {
+            margin: 0;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 18px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #60a5fa;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 35px auto;
+        }
+
+        .button,
+        button {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            padding: 11px 17px;
+            border: none;
+            border-radius: 7px;
+            text-decoration: none;
+            margin: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .button:hover,
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        .message {
+            padding: 15px;
+            background: #dcfce7;
+            color: #166534;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        input {
+            display: block;
+            width: 100%;
+            max-width: 400px;
+            padding: 13px;
+            margin: 12px 0;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+        }
+
+        h1 {
+            margin-bottom: 25px;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <h2>🛒 CodeAlpha Store</h2>
+
+    <div>
+        <a href="/">Home</a>
+        <a href="/cart/">Cart 🛒</a>
+
+        {% if user.is_authenticated %}
+            <span>Hello, {{ user.username }}</span>
+            <a href="/logout/">Logout</a>
+        {% else %}
+            <a href="/login/">Login</a>
+            <a href="/register/">Register</a>
+        {% endif %}
+    </div>
+</nav>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="message">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+
+<div class="container">
+    {% block content %}{% endblock %}
+</div>
+
+</body>
+</html>

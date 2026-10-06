@@ -1,0 +1,135 @@
+{% extends "store/base.html" %}
+
+{% block content %}
+
+<h1>🛍️ Our Products</h1>
+
+<div class="products">
+
+    {% for product in products %}
+
+    <div class="product-card">
+
+        <div class="product-image">
+            🛍️
+        </div>
+
+        <div class="product-content">
+
+            <h2>{{ product.name }}</h2>
+
+            <p class="description">
+                {{ product.description }}
+            </p>
+
+            <h3>₹{{ product.price }}</h3>
+
+            <p class="stock">
+                {% if product.stock > 0 %}
+                    ✅ In Stock: {{ product.stock }}
+                {% else %}
+                    ❌ Out of Stock
+                {% endif %}
+            </p>
+
+            <div class="actions">
+                <a class="button" href="{% url 'product_detail' product.id %}">
+                    View Details
+                </a>
+
+                {% if product.stock > 0 %}
+                <a class="button cart-button" href="{% url 'add_to_cart' product.id %}">
+                    🛒 Add to Cart
+                </a>
+                {% endif %}
+            </div>
+
+        </div>
+
+    </div>
+
+    {% empty %}
+
+    <div class="empty">
+        <h2>No products available.</h2>
+        <p>Please add products from the Django admin panel.</p>
+    </div>
+
+    {% endfor %}
+
+</div>
+
+<style>
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+}
+
+.product-card {
+    background: white;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.product-image {
+    height: 210px;
+    background: #e5e7eb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 75px;
+}
+
+.product-content {
+    padding: 20px;
+}
+
+.product-content h2 {
+    margin-top: 0;
+}
+
+.description {
+    color: #666;
+    min-height: 45px;
+}
+
+.product-content h3 {
+    color: #2563eb;
+    font-size: 24px;
+}
+
+.stock {
+    font-weight: bold;
+}
+
+.actions {
+    margin-top: 15px;
+}
+
+.cart-button {
+    background: #16a34a;
+}
+
+.cart-button:hover {
+    background: #15803d;
+}
+
+.empty {
+    background: white;
+    padding: 40px;
+    text-align: center;
+    border-radius: 12px;
+}
+
+</style>
+
+{% endblock %}
